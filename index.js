@@ -16,13 +16,17 @@ app.post('/add',(req,res)=>{
 });
 app.get('/user/:id',(req,res)=>{
     const data = JSON.parse(fs.readFileSync("datauser.txt","utf8"));
+    if(data[req.params.id])
     res.send(data[req.params.id]);
+    else {res.send("Нет такого")}
 });
 app.put('/user/:id',(req,res)=>{
     const data = JSON.parse(fs.readFileSync("datauser.txt","utf8"));
+    if(data[req.params.id]){
     Object.assign(data[req.params.id],req.body);
     fs.writeFileSync("datauser.txt",JSON.stringify(data));
-    res.send("Все получилось");
+    res.send("Все получилось");}
+    else {res.send("Нет такого")}
 
 });
 app.delete('/user/:id',(req,res)=>{
